@@ -10,12 +10,13 @@
       
      </head>
 
-        <!--BODY-->
+                           <!--BODY-->
     
   <body class="light-theme" aria-label="O site está utilizando o tema light" role="body">
     <header aria-label="Cabeçalho da página.">
       
-           <!--BOTÃO DARK MODE-->
+                          <!--BOTÃO DARK MODE-->
+
    <div class="header-content">    
  <button id="switch-theme-button" onclick="switchTheme()">Inverter Mundos</button>
          
@@ -38,7 +39,7 @@
       <section id="section-inverted-world" class="container">
         <div class="section-texts">
             
-            <!--CONTEÚDO APOIADOR-->
+                          <!--CONTEÚDO APOIADOR-->
             
           <h1>Conteúdo para os apoiadores</h1>
           <p role="text">  -Grupo no whatsapp</p>
@@ -53,14 +54,14 @@
 
       <section id="inmariland-trailer" class="container">
           
-          <!-- YOUTUBE -->
+                             <!-- YOUTUBE -->
           
           
         <div class="video-frame" aria-hidden="true">  
             <iframe class="video-frame" width="560" height="315" src="https://www.youtube.com/embed/zx6_wSw-fUs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
           
-             <!--PLANOS APOIADORES-->
+                            <!--PLANOS APOIADORES-->
           
         <div class="section-texts">
             
@@ -73,7 +74,7 @@
             </div>
       </section>
 
-        <!--EXEMPLOS DE CUSTOMIZAÇÕES RECENTES-->
+                  <!--EXEMPLOS DE CUSTOMIZAÇÕES RECENTES-->
         
       <section id="inmariland-galeria">
         <div class="container section-text">
@@ -95,32 +96,31 @@
       <section id="section-form" class="container">
         
           
-          <!--FORMULÁRIO DE INSCRIÇÃO-->
+                         <!--FORMULÁRIO DE INSCRIÇÃO-->
           
           
         <div class="form-content">
           <h3>Entre para o Grupo de apoiadores e tenha experiências de <span>outro mundo<span></span> </h3>
-            </h3></div></section>
-              
-          
+            </h3></div></section>              
                             
-                   <form class="form-container" action="/action_page.php">
+              <form class="formulario">
     <div class="form">
-  <label for="fname">Seu nome:</label><br>
-  <input type="text" id="fname" name="fname" value="Joana"><br>
-  <label for="lname">número para contato:</label><br>
-  <input type="text" id="lname" name="lname" value="DDD+Número"><br><br>
-        <label for="conhecer">Plano</label>
-    <p class="social2"><select class="social">
-      <option value="basico">Basico</option>
-      <option value="medio">Médio</option>
-      <option value="super-fa">Super Fã</option>
+  <label for="name">Nome Completo</label><br>
+  <input type="text" name="name" value="Joana Maria da Silva" id="txtName"><br>
+  
+<label for="whatsapp">ZipZop</label><br>
+  <input type="number" name="whatsapp" value="81912345678" id="txtZipzop"><br>
+      
+  <label for="planos">Qual Plano do seu interesse?</label>
+      <p class="social2"><select class="social" id="txtPlanos">
+          <option value="Basico">Basica</option>
+      <option value="Media">Média</option>
+      <option value="Super-fa">Super Fã</option>
         </select></p>
-         <input class="envio" type="submit" value="Enviar">
-                
-             
-          </div>
-    
+        <button type="button" id="btnSubscribe">Me Inscrever</button>
+        
+    </div>
+        </form> 
    
     </main>
 
@@ -131,7 +131,7 @@
       <p>
         Obrigada pela sua visita!
       </p>
-      <img src="assets/images/footer/logo.svg" alt="">
+     
     </footer>
     
     <script type="module" src=""></script>
@@ -141,5 +141,57 @@
           document.body.classList.toggle('light-theme');
       }
     </script>
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDtZNJ-5jU-NODCiFZVB7RDFnDKWNyECN4",
+    authDomain: "apoia-se-3751c.firebaseapp.com",
+    projectId: "apoia-se-3751c",
+    storageBucket: "apoia-se-3751c.appspot.com",
+    messagingSenderId: "762515593652",
+    appId: "1:762515593652:web:5256fd30d46c625c4ffae1"
+  };
+
+                    //Apoia-se,js
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  const txtName = document.getElementById('txtName')
+  const txtZipzop = document.getElementById('txtZipzop')
+  const txtPlanos = document.getElementById('txtPlanos')
+
+  const btnSubscribe = document.getElementById('btnSubscribe')
+  
+  btnSubscribe.addEventListener('click', ()=> {
+  const subscription = {
+    name: txtName.value,
+    zipzop: txtZipzop.value,
+    planos: txtPlanos.value
+  } 
+
+      alert ('Obrigada por se inscrever, entrarei em contato em breve!')
+
+    //salvar no banco de dados!
+  subscribeinitializeApp(subscription)
+    })
+
+                        //clube.js
+
+
+  import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/9.9.3/firebase-firestore.js'
+
+  export async function subscribeinitializeApp(subscription) {
+    const db = getFirestore(app)
+    const initializeAppCollection = collection(db,'apoiase-clube')
+    const docRef = await addDoc(initializeAppCollection, subscription)
+    return docRef.id
+  }  
+</script>
   </body>
 </html>
